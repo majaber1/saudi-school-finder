@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    ports: ["3000:3000"]
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/schools
+    depends_on: [db]
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: schools
+    ports: ["5432:5432"]
+    volumes: ["schools_data:/var/lib/postgresql/data"]
+volumes:
+  schools_data:
